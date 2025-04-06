@@ -22,7 +22,7 @@ Disk-Scheduling-Algorithms/
 ├── README.md
 ```
 
-## Algorithm Descriptions
+## Algorithms Descriptions
 
 1. **FCFS**: The simplest disk scheduling algorithm. It serves requests in the order they arrive, without any reordering.
 2. **SSTF**: Selects the request that is closest to the current head position, minimizing seek time.
@@ -34,3 +34,5 @@ Disk-Scheduling-Algorithms/
 - The random requests are generated once and used for all algorithms to ensure fair comparison
 - Head movement is calculated as the absolute difference between consecutive positions
 - The program validates the initial head position (must be 0-4999)
+
+⭐ Star if you find it useful!
