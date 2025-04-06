@@ -105,7 +105,40 @@ public:
         }
         return headMovement;
     }
-    // int cscan();
+
+    int cscan() {
+        int currentPosition = initialHeadPosition;
+        int headMovement = 0;
+
+        vector<int> tempRequests = requests;
+        sort(tempRequests.begin(), tempRequests.end());
+
+        int startIndex = 0;
+        for (int i = 0; i < REQUESTS_NUMBER; i++) {
+            if (tempRequests[i] >= currentPosition) {
+                startIndex = i;
+                break;
+            }
+        }
+
+        // move the head to the right end of the cylinder
+        for (int i = startIndex; i < REQUESTS_NUMBER; i++) {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+
+        // Jump to beginning
+        headMovement += abs(currentPosition - (CYLINDERS_NUMBER - 1)); // From final request to end
+        headMovement += CYLINDERS_NUMBER - 1; // From end to 0
+        currentPosition = 0;
+
+        for (int i = 0; i < startIndex; i++) {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+
+        return headMovement;
+    }
     // int look();
     // int clook();
 };
