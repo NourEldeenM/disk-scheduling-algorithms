@@ -2,8 +2,6 @@
 
 This project implements various disk scheduling algorithms in C++ to simulate and compare their performance. The program simulates a disk with 5,000 cylinders and processes 1,000 random cylinder requests using different scheduling algorithms. I made it as a part of programming exercises from <a href="https://www.amazon.com/s?k=9781118063330&i=stripbooks&linkCode=qs">Operating Systems Concepts 9th edition book.</a>
 
-<img src="https://files.codingninjas.in/disk-scheduling-algorithms-20219.png"></img>
-
 ## Implemented Algorithms
 
 1. **FCFS** (First Come First Serve)
