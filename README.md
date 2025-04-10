@@ -1,6 +1,8 @@
 # Disk Scheduling Algorithms Simulator
 
-This project implements various disk scheduling algorithms in C++ to simulate and compare their performance. The program simulates a disk with 5,000 cylinders and processes 1,000 random cylinder requests using different scheduling algorithms. I made it as a part of programming exercises from <a href="https://www.amazon.com/s?k=9781118063330&i=stripbooks&linkCode=qs">Operating Systems Concepts 9th edition book.</a>
+![visualization](assets/image.png)
+
+This repository implements various disk scheduling algorithms in C++ to simulate and compare their performance. The program simulates a disk with 5,000 cylinders and processes 1,000 random cylinder requests using different scheduling algorithms. I made it as a part of programming exercises from <a href="https://www.amazon.com/s?k=9781118063330&i=stripbooks&linkCode=qs">Operating Systems Concepts 9th edition book.</a>
 
 ## Implemented Algorithms
 
@@ -8,10 +10,10 @@ This project implements various disk scheduling algorithms in C++ to simulate an
 2. **SSTF** (Shortest Seek Time First)
 3. **SCAN** (Elevator Algorithm)
 4. **C-SCAN** (Circular SCAN)
-5. **LOOK**
-6. **C-LOOK**
+5. **LOOK** (SCAN variation)
+6. **C-LOOK** (C-SCAN variation)
 
-## Project Structure
+## Repository Structure
 
 ```plaintext
 Disk-Scheduling-Algorithms/
