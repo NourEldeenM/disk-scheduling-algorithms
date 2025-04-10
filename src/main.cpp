@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     cout << "SSTF:\t" << scheduler.sstf() << endl;
     cout << "SCAN:\t" << scheduler.scan() << endl;
     cout << "C-SCAN:\t" << scheduler.cscan() << endl;
-    // cout << "LOOK:\t" << scheduler.look() << endl;
+    cout << "LOOK:\t" << scheduler.look() << endl;
     // cout << "C-LOOK:\t" << scheduler.clook() << endl;
 
     return 0;

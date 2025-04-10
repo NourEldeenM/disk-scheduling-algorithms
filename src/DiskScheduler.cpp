@@ -67,6 +67,7 @@ public:
             }
             headMovement += minDistance;
             servedRequests.insert(servedRequestIndex);
+            currentPosition = requests[servedRequestIndex];
         }
         return headMovement;
     }
@@ -128,9 +129,11 @@ public:
         }
 
         // Jump to beginning
-        headMovement += abs(currentPosition - (CYLINDERS_NUMBER - 1)); // From final request to end
-        headMovement += CYLINDERS_NUMBER - 1; // From end to 0
-        currentPosition = 0;
+        if (startIndex > 0) {
+            headMovement += abs(currentPosition - (CYLINDERS_NUMBER - 1)); // From final request to end
+            headMovement += CYLINDERS_NUMBER - 1; // From end to 0
+            currentPosition = 0;
+        }
 
         for (int i = 0; i < startIndex; i++) {
             headMovement += abs(currentPosition - tempRequests[i]);
@@ -139,6 +142,34 @@ public:
 
         return headMovement;
     }
-    // int look();
+   
+    int look() {
+        int currentPosition = initialHeadPosition;
+        int headMovement = 0;
+        vector<int> tempRequests = requests;
+
+        sort(tempRequests.begin(), tempRequests.end());
+
+        int startIndex = 0;
+        for (int i = 0; i < REQUESTS_NUMBER; i++) {
+            if (tempRequests[i] >= currentPosition) {
+                startIndex = i;
+                break;
+            }
+        }
+
+        // serve from start position till the final request
+        for (int i = startIndex; i < REQUESTS_NUMBER; i++) {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+
+        
+        for (int i = startIndex - 1; i >= 0; i--) {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+        return headMovement;
+    }
     // int clook();
 };
