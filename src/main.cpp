@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     cout << "SCAN:\t" << scheduler.scan() << endl;
     cout << "C-SCAN:\t" << scheduler.cscan() << endl;
     cout << "LOOK:\t" << scheduler.look() << endl;
-    // cout << "C-LOOK:\t" << scheduler.clook() << endl;
+    cout << "C-LOOK:\t" << scheduler.clook() << endl;
 
     return 0;
 }

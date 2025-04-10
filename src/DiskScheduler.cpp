@@ -21,6 +21,23 @@ public:
         generateRequests();
     }
 
+    /// @brief Gets the starting index in a sequence of requests based on initial head position
+    /// @param sortedRequests requests sorted ascending
+    /// @return starting index in the sorted requests array
+    int getStartIndex(const vector<int> &sortedRequests) {
+        int startIndex = 0;
+        for (int i = 0; i < REQUESTS_NUMBER; i++)
+        {
+            if (sortedRequests[i] >= initialHeadPosition)
+            {
+                startIndex = i;
+                break;
+            }
+        }
+        return startIndex;
+    }
+
+    /// @brief generates a sequence of REQUESTS_NUMBER requests in range 0-4999
     void generateRequests()
     {
         srand(time(0));
@@ -30,9 +47,6 @@ public:
             requests.push_back(rand() % CYLINDERS_NUMBER);
         }
     }
-
-    // time complexity: O(REQUESTS_NUMBER)
-    // space complexity: O(1)
 
     /// @brief First-Come-First-Serve disk scheduling algorithm
     /// @return total amount of head movement from start position
@@ -72,6 +86,8 @@ public:
         return headMovement;
     }
 
+    /// @brief SCAN disk scheduling algorithm
+    /// @return total amount of head movement from start position
     int scan() {
         int currentPosition = initialHeadPosition;
         int headMovement = 0;
@@ -79,18 +95,10 @@ public:
         vector<int> tempRequests = requests;
         sort(tempRequests.begin(), tempRequests.end());
 
-        int startIdx = 0;
-        for (int i = 0; i < REQUESTS_NUMBER; i++)
-        {
-            if (tempRequests[i] >= currentPosition)
-            {
-                startIdx = i;
-                break;
-            }
-        }
+        int startIndex = getStartIndex(tempRequests);
 
         // move to highest request
-        for (int i = startIdx; i < REQUESTS_NUMBER; i++) {
+        for (int i = startIndex; i < REQUESTS_NUMBER; i++) {
             headMovement += abs(currentPosition - tempRequests[i]);
             currentPosition = tempRequests[i];
         }
@@ -98,8 +106,8 @@ public:
         headMovement += abs(currentPosition - (CYLINDERS_NUMBER - 1)); // simulate it reached the end
         currentPosition = CYLINDERS_NUMBER - 1;
 
-        if (startIdx > 0) {
-            for (int i = startIdx - 1; i >= 0; i--) {
+        if (startIndex > 0) {
+            for (int i = startIndex - 1; i >= 0; i--) {
                 headMovement += abs(currentPosition - tempRequests[i]);
                 currentPosition = tempRequests[i];
             }
@@ -107,6 +115,8 @@ public:
         return headMovement;
     }
 
+    /// @brief C-SCAN disk scheduling algorithm
+    /// @return total amount of head movement from start position
     int cscan() {
         int currentPosition = initialHeadPosition;
         int headMovement = 0;
@@ -114,20 +124,14 @@ public:
         vector<int> tempRequests = requests;
         sort(tempRequests.begin(), tempRequests.end());
 
-        int startIndex = 0;
-        for (int i = 0; i < REQUESTS_NUMBER; i++) {
-            if (tempRequests[i] >= currentPosition) {
-                startIndex = i;
-                break;
-            }
-        }
+        int startIndex = getStartIndex(tempRequests);
 
         // move the head to the right end of the cylinder
         for (int i = startIndex; i < REQUESTS_NUMBER; i++) {
             headMovement += abs(currentPosition - tempRequests[i]);
             currentPosition = tempRequests[i];
         }
-
+        
         // Jump to beginning
         if (startIndex > 0) {
             headMovement += abs(currentPosition - (CYLINDERS_NUMBER - 1)); // From final request to end
@@ -142,7 +146,9 @@ public:
 
         return headMovement;
     }
-   
+
+    /// @brief LOOK disk scheduling algorithm
+    /// @return total amount of head movement from start position
     int look() {
         int currentPosition = initialHeadPosition;
         int headMovement = 0;
@@ -150,13 +156,7 @@ public:
 
         sort(tempRequests.begin(), tempRequests.end());
 
-        int startIndex = 0;
-        for (int i = 0; i < REQUESTS_NUMBER; i++) {
-            if (tempRequests[i] >= currentPosition) {
-                startIndex = i;
-                break;
-            }
-        }
+        int startIndex = getStartIndex(tempRequests);
 
         // serve from start position till the final request
         for (int i = startIndex; i < REQUESTS_NUMBER; i++) {
@@ -171,5 +171,37 @@ public:
         }
         return headMovement;
     }
-    // int clook();
+
+    /// @brief C-LOOK disk scheduling algorithm
+    /// @return total amount of head movement from start position
+    int clook() {
+        int currentPosition = initialHeadPosition;
+        int headMovement = 0;
+        vector<int> tempRequests = requests;
+
+        sort(tempRequests.begin(), tempRequests.end());
+
+        int startIndex = getStartIndex(tempRequests);
+
+        // serve from start position till the final request
+        for (int i = startIndex; i < REQUESTS_NUMBER; i++)
+        {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+
+        // jump from final request to first request
+        if (startIndex > 0) {
+            headMovement += abs(currentPosition - tempRequests[0]);
+            currentPosition = tempRequests[0];
+        }
+
+        // serve from first request
+        for (int i = 0; i < startIndex; i++)
+        {
+            headMovement += abs(currentPosition - tempRequests[i]);
+            currentPosition = tempRequests[i];
+        }
+        return headMovement;
+    }
 };
