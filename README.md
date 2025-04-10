@@ -1,4 +1,4 @@
-# Disk Scheduling Algorithms Simulator
+# Disk Scheduling Algorithms Simulator 💽
 
 ![visualization](assets/image.png)
 
@@ -17,6 +17,9 @@ This repository implements various disk scheduling algorithms in C++ to simulate
 
 ```plaintext
 Disk-Scheduling-Algorithms/
+├── assets/
+│   ├── image.png (visualization of the disk scheduling algorithms)
+│   ├── visuals.excalidraw (excalidraw file for the visualization)
 ├── src/
 │   ├── main.cpp (contains driver program)
 │   ├── DiskScheduler.cpp (class definition and functions implementations)
@@ -30,6 +33,8 @@ Disk-Scheduling-Algorithms/
 2. **SSTF**: Selects the request that is closest to the current head position, minimizing seek time.
 3. **SCAN**: The disk arm moves in one direction, servicing all requests until it reaches the end of the disk, then reverses direction.
 4. **C-SCAN**: Similar to SCAN, but when the end of the disk is reached, the arm jumps back to the beginning and continues servicing requests in the same direction.
+5. **LOOK**: Similar to SCAN, but instead of moving to the end of the disk, the arm reverses direction at the farthest request in each direction, reducing unnecessary movement.
+6. **C-LOOK**: Similar to C-SCAN, but instead of jumping to the disk’s beginning, the arm jumps from the highest request to the lowest request and continues servicing in the same direction, avoiding unnecessary trips to the disk extremes.
 
 ## Notes
 
@@ -37,4 +42,4 @@ Disk-Scheduling-Algorithms/
 - Head movement is calculated as the absolute difference between consecutive positions
 - The program validates the initial head position (must be 0-4999)
 
-⭐ Star if you find it useful!
+⭐ Star if you find it useful! ⭐
